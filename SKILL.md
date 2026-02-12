@@ -1,5 +1,5 @@
 ---
-name: nitro-dev
+name: nitro-framework
 description: >
   Comprehensive Nitro v3 framework development skill for building server APIs, full-stack apps,
   and backend services. Use when working on projects that use Nitro (nitro, nitropack) including:
