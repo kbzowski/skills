@@ -166,9 +166,12 @@ export default defineNitroConfig({
 
 ## Detailed References
 
+- **H3 Utilities**: See [references/h3-utils.md](references/h3-utils.md) for all `nitro/h3` functions — request reading (query, body, headers, cookies), response setting (status, headers, cookies, redirects), error handling, proxy, validation.
 - **Routing**: See [references/routing.md](references/routing.md) for full routing patterns, params, methods, streaming, route rules, and route metadata.
 - **Caching, Storage & Database**: See [references/caching-storage.md](references/caching-storage.md) for cache options, storage drivers, database connectors, and server assets.
 - **Advanced Features**: See [references/advanced.md](references/advanced.md) for middleware, plugins, tasks, WebSocket, error handling, server entry, async context, and prerendering.
+- **SSR Patterns**: See [references/ssr-patterns.md](references/ssr-patterns.md) for server-side rendering with React, Vue, and Solid — Vite config, server/client entries, asset imports.
+- **OpenAPI**: See [references/openapi.md](references/openapi.md) for auto-generated OpenAPI 3.1 specs, Scalar/Swagger UI, and `defineRouteMeta()`.
 - **Deployment & Config**: See [references/deployment.md](references/deployment.md) for all deployment presets, platform-specific setup, and full configuration reference.
 
 ## Request Lifecycle (Priority Order)
