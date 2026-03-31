@@ -23,3 +23,4 @@ npx skills add kbzowski/skills -l
 | [iterative-refactor](skills/iterative-refactor/) | Structured codebase refactoring with analysis, proposals, and verification |
 | [fix-playwright](skills/fix-playwright/) | Fix all Playwright E2E test failures and flaky tests, verify with 3 consecutive green runs |
 | [here-routing](skills/here-routing/) | Fetch real driving routes, distances, and travel times using HERE Maps Routing API v8 |
+| [nestjs-circular-deps](skills/nestjs-circular-deps/) | Diagnose, fix, and prevent circular dependencies in NestJS projects |
