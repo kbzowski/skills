@@ -148,7 +148,8 @@ module classes or providers. Keep barrel exports minimal.
 <pmx> madge --circular --extensions ts src/ && echo "OK" || exit 1
 ```
 
-**ESLint:** `import/no-cycle` rule with `maxDepth: 3`.
+**Linter rules:** If the project uses ESLint, enable `import/no-cycle` with `maxDepth: 3`.
+If the project uses Biome, enable `noCircularDependencies` in `biome.json`.
 
 ---
 

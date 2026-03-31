@@ -59,9 +59,16 @@ Use the project's package runner (`npx`, `pnpm exec`, `yarn`, `bunx`):
   process.exit(r.summary.totalCycles > 0 ? 1 : 0)"
 ```
 
+Detect the project's linter from config files and apply the appropriate rule:
+
 ```json
-// ESLint — import/no-cycle
+// ESLint (.eslintrc / eslint.config) — import/no-cycle
 { "rules": { "import/no-cycle": ["error", { "maxDepth": 3 }] } }
+```
+
+```json
+// Biome (biome.json) — noCircularDependencies
+{ "linter": { "rules": { "correctness": { "noCircularDependencies": "error" } } } }
 ```
 
 ## Code Review Checklist
