@@ -148,8 +148,11 @@ module classes or providers. Keep barrel exports minimal.
 <pmx> madge --circular --extensions ts src/ && echo "OK" || exit 1
 ```
 
-**Linter rules:** If the project uses ESLint, enable `import/no-cycle` with `maxDepth: 3`.
+**Linter rules (file-level cycle prevention):** These catch import cycles between files —
+often caused by barrel files — which frequently lead to NestJS DI-level cycles.
+If the project uses ESLint, enable `import/no-cycle` with `maxDepth: 3`.
 If the project uses Biome, enable `noImportCycles` in `biome.json`.
+These rules do not detect NestJS module-level cycles directly — use spelunker for that.
 
 ---
 
