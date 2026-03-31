@@ -43,12 +43,18 @@ Skip steps as needed. Error pasted? Start at 1. Prevention advice? Jump to 5.
 **Project starts:** Install `nestjs-spelunker` and run the bundled analysis script:
 
 ```bash
-<package-manager> add nestjs-spelunker -D
-npx ts-node ${CLAUDE_SKILL_DIR}/scripts/spelunker-analyze.ts --mermaid
+<pm> add nestjs-spelunker -D
+<pmx> ts-node ${CLAUDE_SKILL_DIR}/scripts/spelunker-analyze.ts --mermaid
 ```
 
-Detect the project's package manager from the lockfile (`package-lock.json` → npm,
-`pnpm-lock.yaml` → pnpm, `yarn.lock` → yarn, `bun.lockb` → bun).
+Detect the project's package manager and runner from the lockfile:
+
+| Lockfile | Install (`<pm>`) | Run (`<pmx>`) |
+|----------|-----------------|---------------|
+| `package-lock.json` | `npm` | `npx` |
+| `pnpm-lock.yaml` | `pnpm` | `pnpm exec` |
+| `yarn.lock` | `yarn` | `yarn` |
+| `bun.lockb` | `bun` | `bunx` |
 
 Or use the inline snippet (add temporarily to `main.ts`):
 
@@ -117,10 +123,10 @@ order (shared modules first).
 
 Run in order:
 
-1. `npx tsc --noEmit` — no circular reference warnings
-2. `npx nest start` — boots without DI errors
+1. `<pmx> tsc --noEmit` — no circular reference warnings
+2. `<pmx> nest start` — boots without DI errors
 3. Re-run spelunker — zero cycles in runtime graph
-4. `npx madge --circular --extensions ts src/` — no file-level import cycles
+4. `<pmx> madge --circular --extensions ts src/` — no file-level import cycles
 5. Existing tests pass
 
 If any step fails, trace the root cause and fix before proceeding.
@@ -139,7 +145,7 @@ module classes or providers. Keep barrel exports minimal.
 
 **CI gates:**
 ```bash
-npx madge --circular --extensions ts src/ && echo "OK" || exit 1
+<pmx> madge --circular --extensions ts src/ && echo "OK" || exit 1
 ```
 
 **ESLint:** `import/no-cycle` rule with `maxDepth: 3`.

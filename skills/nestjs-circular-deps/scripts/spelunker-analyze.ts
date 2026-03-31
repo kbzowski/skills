@@ -6,7 +6,7 @@
  * circular dependency cycles, and outputs results as JSON and/or Mermaid.
  *
  * Usage:
- *   npx ts-node scripts/spelunker-analyze.ts [--json] [--mermaid] [--debug]
+ *   <pmx> ts-node scripts/spelunker-analyze.ts [--json] [--mermaid] [--debug]
  *
  * Prerequisites:
  *   npm install nestjs-spelunker --save-dev

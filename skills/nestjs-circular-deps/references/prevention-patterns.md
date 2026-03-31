@@ -47,12 +47,14 @@ No direct module imports between bounded contexts.
 
 ## CI Gates
 
+Use the project's package runner (`npx`, `pnpm exec`, `yarn`, `bunx`):
+
 ```bash
 # madge — file-level cycle detection
-npx madge --circular --extensions ts src/
+<pmx> madge --circular --extensions ts src/
 
 # spelunker — runtime DI graph cycle detection
-npx ts-node scripts/spelunker-analyze.ts --json | \
+<pmx> ts-node scripts/spelunker-analyze.ts --json | \
   node -e "const r=JSON.parse(require('fs').readFileSync(0,'utf8')); \
   process.exit(r.summary.totalCycles > 0 ? 1 : 0)"
 ```
