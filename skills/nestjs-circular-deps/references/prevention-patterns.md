@@ -67,8 +67,8 @@ Detect the project's linter from config files and apply the appropriate rule:
 ```
 
 ```json
-// Biome (biome.json) — noCircularDependencies
-{ "linter": { "rules": { "correctness": { "noCircularDependencies": "error" } } } }
+// Biome (biome.json) — noImportCycles
+{ "linter": { "rules": { "correctness": { "noImportCycles": "error" } } } }
 ```
 
 ## Code Review Checklist

@@ -149,7 +149,7 @@ module classes or providers. Keep barrel exports minimal.
 ```
 
 **Linter rules:** If the project uses ESLint, enable `import/no-cycle` with `maxDepth: 3`.
-If the project uses Biome, enable `noCircularDependencies` in `biome.json`.
+If the project uses Biome, enable `noImportCycles` in `biome.json`.
 
 ---
 
