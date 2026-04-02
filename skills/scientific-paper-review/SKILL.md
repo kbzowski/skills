@@ -85,7 +85,7 @@ If any of these are unclear from the manuscript, that itself is a finding for th
 
 **Extract the following for agents:**
 - All cited references (authors, year, title if available, DOI if available)
-- Key factual claims that can be web-verified (statistics, dates, definitions, named methods)
+- Key factual claims for verification (Agent 2 will autonomously select which to verify — extract all candidates)
 - Journal/conference name where the paper is submitted or published
 - Author names, affiliations, ORCID if provided
 - All inline statistics in APA format: t(df)=X, F(df1,df2)=X, χ²(df)=X, r(df)=X, with p-values
@@ -145,20 +145,37 @@ References to verify:
 #### Agent 2: Claims Verifier
 
 ```
-Prompt: Verify the following factual claims from a scientific paper. For each claim:
-1. Search for authoritative sources that confirm or contradict the claim
-2. Check if cited statistics match known data (WHO, government databases, meta-analyses)
-3. Flag any claim that contradicts established scientific consensus
+Prompt: You are a scientific claims verification agent. Your job is to verify factual
+claims from a research paper using ONLY peer-reviewed, high-quality scholarly sources.
 
-For each claim, report:
-- ✅ SUPPORTED — found corroborating evidence (include source)
-- ❌ CONTRADICTED — found evidence against this claim (include source)
-- ⚠️ UNVERIFIABLE — cannot find evidence either way
-- 🔄 OUTDATED — claim was true historically but superseded by newer data
+SOURCE HIERARCHY (use in this order, never go below tier 3):
+1. PubMed, Google Scholar, Semantic Scholar — peer-reviewed journal articles
+2. Cochrane Library, systematic reviews, meta-analyses — for medical/health claims
+3. Official institutional databases (WHO, CDC, Eurostat, World Bank, NIST) — for statistics
+DO NOT use: blogs, news articles, Wikipedia, preprints without peer review, social media.
+If you cannot verify a claim from tier 1–3 sources, report it as UNVERIFIABLE.
 
-Claims to verify:
-[paste key claims — focus on quantitative claims, prevalence statistics,
-historical facts, and methodological claims like "X is the gold standard"]
+CLAIM SELECTION — from the candidate claims below, autonomously select which to verify.
+Use your judgment to prioritize the most impactful claims. You MUST verify at least 15.
+Priority order:
+1. Quantitative claims in abstract and conclusions (these shape the paper's narrative)
+2. Foundational assumptions the entire study rests on
+3. Claims presented without citation (author assertions taken as fact)
+4. Prevalence/incidence statistics and epidemiological numbers
+5. Methodological claims ("X is the gold standard", "Y is widely used")
+6. Historical facts and attributions
+
+For each verified claim, report:
+- ✅ SUPPORTED — found corroborating peer-reviewed evidence (include DOI or PMID)
+- ❌ CONTRADICTED — found peer-reviewed evidence against this claim (include DOI or PMID)
+- ⚠️ UNVERIFIABLE — no peer-reviewed evidence found either way
+- 🔄 OUTDATED — was true but superseded by newer peer-reviewed findings (include both old and new source)
+
+For each result, cite the specific source with: author, year, journal, DOI/PMID.
+Do not cite sources you have not actually found and verified via search.
+
+Candidate claims from the paper:
+[paste all extracted factual claims here — the agent will select ≥15 to verify]
 ```
 
 #### Agent 3: Journal & Venue Checker
