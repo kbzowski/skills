@@ -66,10 +66,10 @@ Copy this checklist and track progress:
 ```
 Review Progress:
 - [ ] Step 1: First read — comprehension pass & extraction
-- [ ] Step 2: Launch verification agents (parallel)
+- [ ] Step 2: Launch verification agents (parallel, in background)
 - [ ] Step 3: AI slop & paper mill scan
 - [ ] Step 4: Structured evaluation (10 dimensions)
-- [ ] Step 5: Collect agent results
+- [ ] Step 5: Collect agent results (monitor, handle timeouts)
 - [ ] Step 6: Synthesis, verification report, and recommendation
 ```
 
@@ -105,8 +105,13 @@ See [references/reporting_guidelines.md](references/reporting_guidelines.md) for
 
 ### Step 2: Launch Verification Agents
 
-Launch these agents **in parallel** using the Agent tool immediately after Step 1.
-Do not wait for results — proceed to Steps 3–4 while agents work.
+**Before launching agents**, inform the user about expected duration and ask:
+> "The paper has [X] references and [Y] claims to verify. Verification agents may run
+> for several minutes (especially Agent 1 with many references). Should I monitor their
+> progress and report back every 5 minutes, or just notify you when everything is done?"
+
+Launch agents **in parallel** using the Agent tool with `run_in_background: true`.
+Proceed to Steps 3–4 while agents work.
 
 #### Agent 1: Reference Verifier
 
@@ -312,8 +317,23 @@ For methodology specifically, flag lack of expertise to evaluate a specific meth
 
 ### Step 5: Collect Agent Results
 
-Wait for all verification agents to complete. Aggregate findings into the Verification Report
-section of the output.
+Check if all verification agents have completed. If any agent is still running:
+
+1. **If user requested monitoring:** Report progress every 5 minutes:
+   > "Agent status: Reference Verifier ✅ done (12/15 refs verified), Claims Verifier ⏳ running,
+   > Journal Checker ✅ done, Author Checker ✅ done, Statistical Integrity ✅ done."
+
+2. **If an agent has been running for >10 minutes with no response:** It may be stalled.
+   Inform the user and offer to proceed without that agent's results:
+   > "Agent [name] has been running for [X] minutes without responding. This may indicate
+   > it is stalled. I can: (a) wait longer, (b) proceed without its results and note this
+   > gap in the Verification Report, or (c) relaunch with a smaller batch."
+
+3. **For large reference lists (>30 references):** Consider splitting across multiple
+   Reference Verifier agents (e.g., refs 1–15 and refs 16–30) to avoid timeout.
+
+Aggregate all completed agent findings into the Verification Report section of the output.
+If any agent failed or was skipped, note it explicitly in the report.
 
 ### Step 6: Synthesis and Integrity Risk Assessment
 
