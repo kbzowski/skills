@@ -72,6 +72,7 @@ Review Progress:
 - [ ] Step 5: Collect agent results (monitor, handle timeouts)
 - [ ] Step 6: Synthesis, verification report, and recommendation
 - [ ] Step 7: Prose review letter (optional — ask user)
+- [ ] Step 8: Self-verification audit (mandatory — never skip)
 ```
 
 ### Step 1: First Read — Comprehension Pass & Extraction
@@ -457,6 +458,35 @@ it on the prose review to remove AI writing patterns and make the text sound nat
 If not available, manually avoid LLM-typical patterns: no "delve", "crucial", "it is worth
 noting", no participle chains ("highlighting", "underscoring"), vary sentence length and
 structure, use direct phrasing.
+
+## Step 8: Self-Verification (mandatory)
+
+This step is **non-negotiable**. Every review must be verified before presenting to the user.
+
+After generating the structured report (and prose review if requested), launch a
+self-verification agent. Read [references/self_verification.md](references/self_verification.md)
+and embed the full auditor prompt into the Agent tool call, along with:
+- The original manuscript text
+- The complete review (structured report + prose review if generated)
+
+The auditor checks 5 dimensions: **accuracy** (do review claims match the manuscript?),
+**fairness** (are concerns proportionate and evidence-based?), **hallucination** (does the
+review invent content not in the paper?), **question relevance** (are questions already
+answered in the manuscript?), and **recommendation consistency** (does the verdict match
+the findings?).
+
+**After receiving the audit results:**
+
+- **CLEAN**: present the review to the user.
+- **NEEDS REVISION**: fix every flagged issue before presenting. Then re-run the audit.
+  Do not present a review that failed verification.
+- Questions flagged as "already answered": remove or rephrase.
+- Concerns flagged as inaccurate: correct with right reference or remove entirely.
+
+Inform the user that the review was self-verified:
+> "This review has been verified against the original manuscript for accuracy, fairness,
+> and hallucination. [X] corrections were made during verification."
+> (or: "No corrections were needed.")
 
 ## Language
 
