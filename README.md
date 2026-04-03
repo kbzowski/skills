@@ -24,5 +24,4 @@ npx skills add kbzowski/skills -l
 | [fix-playwright](skills/fix-playwright/) | Fix all Playwright E2E test failures and flaky tests, verify with 3 consecutive green runs |
 | [here-routing](skills/here-routing/) | Fetch real driving routes, distances, and travel times using HERE Maps Routing API v8 |
 | [nestjs-circular-deps](skills/nestjs-circular-deps/) | Diagnose, fix, and prevent circular dependencies in NestJS projects |
-| [tanstack-betterauth-mcp-oauth](skills/tanstack-betterauth-mcp-oauth/) | Add MCP server with OAuth 2.1 to TanStack Start + Better Auth projects |
 | [tanstack-docs](skills/tanstack-docs/) | Search and fetch TanStack documentation, scaffold TanStack projects using @tanstack/cli |
