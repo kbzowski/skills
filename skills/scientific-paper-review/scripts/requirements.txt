@@ -1,4 +1,9 @@
+# Required
 scipy>=1.11.0
 pdfplumber>=0.10.0
 PyMuPDF>=1.23.0
-Pillow>=10.0.0
+
+# Optional — install for better scientific paper extraction:
+# pip install marker-pdf        # Best all-around: multi-column, equations, reading order
+# pip install magic-pdf         # MinerU: best for academic structure, 84 languages
+# GROBID: run via Docker: docker run -t --rm -p 8070:8070 lfoppiano/grobid:latest

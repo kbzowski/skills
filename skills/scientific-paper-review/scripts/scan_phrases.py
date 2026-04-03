@@ -14,6 +14,11 @@ import re
 import sys
 from collections import Counter
 
+# Ensure UTF-8 output on Windows
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
 # === TORTURED PHRASES (paper mill indicators) ===
 # Any single match = MAJOR flag
 TORTURED_PHRASES = {
@@ -103,7 +108,7 @@ CITATION_ARTIFACTS = [
     r"contentReference",
     r"oaicite",
     r"oai_citation",
-    r"\+1\b",
+    r"(?<![a-zA-Z0-9_\*\[\]\(\)\+\-])\+1(?![0-9\.\-\]\)])",  # isolated +1, not math like i+1 or [i+1]
     r"attached_file",
     r"grok_card",
     r"as\s+of\s+my\s+(?:last\s+)?training\s+data",
