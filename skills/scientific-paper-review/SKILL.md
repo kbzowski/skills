@@ -57,6 +57,14 @@ These rules are non-negotiable:
   nowhere, a journal is predatory, a statistic is impossible, or a reference is retracted —
   report it as an objective finding.
 
+## Setup (run once per session)
+
+```bash
+pip install -r scripts/requirements.txt
+```
+
+Scripts in `scripts/` accept file or stdin, output JSON. Use them for all calculations.
+
 ## Review Workflow
 
 Follow this sequence. Do not skip steps.
@@ -76,6 +84,13 @@ Review Progress:
 ```
 
 ### Step 1: First Read — Comprehension Pass & Extraction
+
+**If the manuscript is a PDF**, extract text and metadata first:
+```bash
+python scripts/pdf_extract.py manuscript.pdf --output-dir /tmp/review
+```
+Produces: `full_text.txt`, `tables.json`, `metadata.json`, `figures_info.json` (with DPI).
+Flag any images with `estimated_dpi < 150` for Figures evaluation.
 
 Read the entire manuscript. Before writing anything, form answers to:
 - What is the research question or hypothesis?
@@ -246,36 +261,24 @@ Report:
 - Any red flags? (no online presence, affiliation mismatch, paper mill indicators)
 ```
 
-#### Agent 5: Statistical Integrity Checker
+#### Statistical Integrity Checks (scripts, not agent)
 
-```
-Prompt: Check the statistical integrity of the following reported statistics from a
-scientific paper. See the detailed guide below for each test.
+Run these scripts directly instead of delegating to an agent — they are deterministic
+and more accurate than LLM mental math.
 
-PART A — Statcheck (p-value recalculation):
-For each statistic reported in APA format, recalculate the p-value and compare:
-[paste extracted statistics: e.g., "t(34) = 2.10, p = .02"]
-
-PART B — GRIM Test (mean consistency):
-For each reported mean of integer-scale data, check if it's mathematically possible:
-[paste: mean, sample size, number of decimal places, scale type]
-
-PART C — Impossible statistics scan:
-Check for: percentages not summing to 100, CI not containing point estimate,
-df inconsistent with sample size, correlations outside [-1, 1], negative F or χ²,
-sample sizes changing between analyses without explanation.
-
-PART D — P-value clustering:
-Count all reported p-values. Report how many fall in each range:
-.001-.01, .01-.03, .03-.04, .04-.049, .05-.10, >.10
-Flag if suspicious clustering just below .05.
-
-Report findings per test with PASS / FLAG / FAIL for each.
+**Statcheck** — extracts APA statistics, recalculates p-values, detects p-value clustering:
+```bash
+python scripts/statcheck.py /tmp/review/full_text.txt
 ```
 
-**Before launching Agent 5:** Read [references/statistical_checks.md](references/statistical_checks.md)
-and embed the test methodology (formulas, examples, thresholds) directly into the agent prompt.
-The subagent has no filesystem access — all instructions must be in the prompt itself.
+**GRIM/GRIMMER** — mean/SD consistency for integer-scale data:
+```bash
+echo '[{"mean": 3.47, "n": 10, "decimals": 2, "sd": 1.2}]' | python scripts/grim.py -
+```
+
+**Impossible statistics** — check manually per [references/statistical_checks.md](references/statistical_checks.md) (Test C).
+
+Incorporate all script results into the Verification Report.
 
 #### Agent 6: Code-Paper Alignment (conditional)
 
@@ -304,12 +307,15 @@ Report:
 
 ### Step 3: AI Slop & Paper Mill Scan
 
-While agents work, scan the manuscript for AI-generated content and paper mill indicators.
-See [references/ai_slop_heuristics.md](references/ai_slop_heuristics.md) for the full detection guide
-and [references/tortured_phrases.md](references/tortured_phrases.md) for paper mill phrase detection.
-
-Perform the scan silently. Do not report individual heuristic matches — only the
-aggregate assessment goes into the Verification Report.
+Run the automated phrase scanner while agents work:
+```bash
+python scripts/scan_phrases.py /tmp/review/full_text.txt
+```
+Detects: tortured phrases, LLM markers (3 tiers), citation artifacts, copula avoidance,
+participle patterns. For structural signals requiring comprehension (paragraph uniformity,
+register shifts, filler), evaluate manually per
+[references/ai_slop_heuristics.md](references/ai_slop_heuristics.md).
+Combine script + manual findings. Only aggregate goes into Verification Report.
 
 ### Step 4: Structured Evaluation
 
