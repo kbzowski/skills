@@ -39,7 +39,14 @@ If Integrity Risk is HIGH, insert the risk banner immediately after the title, b
 [assessment]
 
 #### Figures and Tables
-[assessment — error bars, axes, legends, data consistency, accessibility]
+Figures reviewed: [count] | Tables reviewed: [count]
+- Data integrity (figure↔text consistency): [PASS / issues]
+- Visual honesty (axes, scales, cherry-picking): [PASS / issues]
+- Statistical presentation (error bars, distributions, significance): [PASS / issues]
+- Technical quality (resolution, readability, DPI): [PASS / issues]
+- Color accessibility (colorblind-safe, grayscale): [PASS / issues]
+- Labels & legends (self-contained, units, captions): [PASS / issues]
+- Integrity flags (duplication, AI-generated, fabrication): [none / flagged]
 
 #### Ethics, Declarations & Open Science
 - IRB/Ethics approval: ✅/❌ [details]

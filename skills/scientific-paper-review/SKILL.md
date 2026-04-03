@@ -329,9 +329,9 @@ Evaluate each dimension below. For each, provide:
    overclaiming, alternative explanations seriously engaged
 6. **References and Citations** — currency, relevance, self-citation, completeness
 7. **Writing Quality** — clarity, organization, flow (flag language only if it impedes comprehension)
-8. **Figures and Tables** — error bars defined (SD/SEM/CI)? axes labeled with units?
-   legends self-contained? data consistent with text? individual data points shown where
-   appropriate? colorblind-accessible? resolution adequate?
+8. **Figures and Tables** — see [references/figures_evaluation.md](references/figures_evaluation.md)
+   for the full checklist. Evaluate: data integrity, visual honesty, statistical presentation,
+   technical quality, and completeness.
 9. **Ethics, Declarations & Open Science** — pass/fail checklist:
    - [ ] IRB/ethics approval with committee name and approval number
    - [ ] Informed consent described
