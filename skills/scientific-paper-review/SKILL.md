@@ -71,6 +71,7 @@ Review Progress:
 - [ ] Step 4: Structured evaluation (10 dimensions)
 - [ ] Step 5: Collect agent results (monitor, handle timeouts)
 - [ ] Step 6: Synthesis, verification report, and recommendation
+- [ ] Step 7: Prose review letter (optional — ask user)
 ```
 
 ### Step 1: First Read — Comprehension Pass & Extraction
@@ -425,6 +426,37 @@ Write the synthesis covering:
 ## Output Format
 
 See [references/output_template.md](references/output_template.md) for the full report template.
+
+## Step 7: Prose Review (optional)
+
+After generating the structured report, ask the user:
+
+> "The structured report is ready. Would you also like a **prose-style review letter** —
+> the kind you'd submit to a journal editor? It will be concise: brief summary of the work,
+> key concerns with questions, and a recommendation. No lengthy paper description."
+
+If the user agrees, generate a prose review following these rules:
+
+**Structure:**
+1. **Opening** (2–3 sentences) — what the paper does and its claimed contribution. No padding.
+2. **Strengths** (1 short paragraph) — only the most important ones.
+3. **Concerns and questions** (main body) — weave major/minor concerns and questions for
+   authors into a natural narrative. Lead with the most critical issues. Each concern should
+   be actionable.
+4. **Recommendation** (1–2 sentences) — clear verdict with brief justification.
+
+**Style rules:**
+- Maximum ~500 words. Shorter is better.
+- No section-by-section rehash — synthesize across dimensions.
+- Write like an experienced reviewer: direct, professional, no filler.
+- Do not repeat the paper's abstract back to the authors — they know what they wrote.
+
+**Humanization:** Before outputting the prose review, check if the user has the `humanizer`
+skill installed (search for SKILL.md in a `humanizer` skill directory). If available, invoke
+it on the prose review to remove AI writing patterns and make the text sound naturally human.
+If not available, manually avoid LLM-typical patterns: no "delve", "crucial", "it is worth
+noting", no participle chains ("highlighting", "underscoring"), vary sentence length and
+structure, use direct phrasing.
 
 ## Language
 
