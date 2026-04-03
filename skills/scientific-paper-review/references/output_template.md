@@ -78,10 +78,11 @@ DOI/ISBN format issues: [list or "none"]
 Citation artifacts found: [list or "none"]
 
 #### Key Claims Verified: X/Y
-- ✅ "claim text" — Supported by [source]
-- ❌ "claim text" — Contradicted by [source]
-- ⚠️ "claim text" — Unverifiable
-- 🔄 "claim text" — Outdated, superseded by [newer finding]
+- ✅ "claim text" — Supported by [author, year, journal (IF/SJR), DOI]
+- 🟡 "claim text" — Weakly supported, preprint only: [source]
+- ❌ "claim text" — Contradicted by [author, year, journal (IF/SJR), DOI]
+- ⚠️ "claim text" — Unverifiable (no acceptable scholarly sources found)
+- 🔄 "claim text" — Outdated, superseded by [newer finding, DOI]
 
 #### Journal/Venue Assessment
 - Indexed in: [list databases]
