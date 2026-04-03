@@ -56,11 +56,19 @@ PATTERNS = {
 
 
 def parse_p_value(comparator: str, p_str: str) -> tuple[float, bool]:
-    """Parse reported p-value. Returns (value, is_exact)."""
-    p = float(p_str) if float(p_str) >= 1 else float(p_str)
-    # Handle cases like "p = .02" -> 0.02, "p < .001" -> 0.001
-    if p >= 1:
-        p = p / (10 ** len(p_str.replace(".", "")))
+    """Parse reported p-value. Returns (value, is_exact).
+
+    Handles the common APA convention where p-values omit the leading zero:
+    "p = .02" is captured as p_str="02" (the regex's optional \\. eats the dot),
+    so we need to reconstruct 0.02 from the raw "02".
+    But "p = 1.0" should stay as 1.0 — a legitimate (if rare) p-value.
+    """
+    p = float(p_str)
+    # Only apply the leading-zero correction when the raw string has no dot,
+    # meaning the regex consumed a standalone ".02" as "02".  A real "1.0"
+    # keeps its dot and won't enter this branch.
+    if p >= 1 and "." not in p_str:
+        p = p / (10 ** len(p_str))
     is_exact = comparator in ("=", )
     return p, is_exact
 

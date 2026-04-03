@@ -43,13 +43,13 @@ TORTURED_PHRASES = {
     "huge information preparing": "big data processing",
     "human experience disclosure": "human exposure assessment",
     "inherited recurrence": "genetic recurrence",
-    "natural forces": "chemical reactions",
+    # "natural forces" omitted — too common in physics/geology to flag automatically
     "profound learning": "deep learning",
     "sham neural system": "artificial neural network",
     "shrewd gadgets": "smart devices",
     "brilliant gadgets": "smart devices",
     "sign of rapidity": "velocity vector",
-    "warm water": "hot water (thermal)",
+    # "warm water" omitted — too common in oceanography/ecology to flag automatically
     "writing soft copy": "writing digitally",
     "convolutionary brain system": "convolutional neural network",
     "arbitrary woodland": "random forest",
@@ -70,7 +70,8 @@ TIER1_PHRASES = [
     r"ever-evolving\s+landscape",
     r"tapestry\s+of",
     r"indelible\s+mark",
-    r"\bnestled\b",
+    # "nestled" outside geography contexts — skip common legitimate collocations
+    r"\bnestled\b(?!\s+(?:in\s+the\s+(?:valley|mountains?|hills?|foothills|between|among)))",
 ]
 
 TIER2_PHRASES = [
