@@ -3,21 +3,19 @@
 # requires-python = ">=3.10"
 # dependencies = [
 #   "requests>=2.31",
-#   "pillow>=10.0.0",
 # ]
 # ///
 """
 Generate images via OpenRouter using openai/gpt-5.4-image-2.
 
 Usage:
-    uv run generate_image.py --prompt "your image description" --filename "output.png" [--api-key KEY]
+    uv run generate_image.py --prompt "your image description" --filename "output.png" [options]
 """
 
 import argparse
 import base64
 import os
 import sys
-from io import BytesIO
 from pathlib import Path
 
 
@@ -44,6 +42,30 @@ def main():
         "--api-key", "-k",
         help="OpenRouter API key (overrides OPENROUTER_API_KEY env var)"
     )
+    parser.add_argument(
+        "--aspect-ratio",
+        help='OpenRouter image_config aspect_ratio, e.g. "1:1", "16:9", "4:3", "3:4", "9:16"'
+    )
+    parser.add_argument(
+        "--image-size",
+        choices=["1K", "2K", "4K"],
+        help="OpenRouter image_config image_size tier"
+    )
+    parser.add_argument(
+        "--quality",
+        choices=["low", "medium", "high", "auto"],
+        help="OpenAI gpt-image-2 quality (passthrough)"
+    )
+    parser.add_argument(
+        "--output-format",
+        choices=["png", "jpeg", "webp"],
+        help="OpenAI gpt-image-2 output format (passthrough)"
+    )
+    parser.add_argument(
+        "--background",
+        choices=["auto", "opaque"],
+        help='OpenAI gpt-image-2 background (passthrough). Note: gpt-image-2 does NOT support "transparent".'
+    )
 
     args = parser.parse_args()
 
@@ -56,16 +78,30 @@ def main():
         sys.exit(1)
 
     import requests
-    from PIL import Image as PILImage
 
     output_path = Path(args.filename)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    payload = {
+    image_config: dict = {}
+    if args.aspect_ratio:
+        image_config["aspect_ratio"] = args.aspect_ratio
+    if args.image_size:
+        image_config["image_size"] = args.image_size
+    if args.quality:
+        image_config["quality"] = args.quality
+    if args.output_format:
+        image_config["output_format"] = args.output_format
+    if args.background:
+        image_config["background"] = args.background
+
+    payload: dict = {
         "model": MODEL,
         "messages": [{"role": "user", "content": args.prompt}],
         "modalities": ["image", "text"],
     }
+    if image_config:
+        payload["image_config"] = image_config
+
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
@@ -73,6 +109,8 @@ def main():
     }
 
     print(f"Generating image with {MODEL}...")
+    if image_config:
+        print(f"image_config: {image_config}")
 
     try:
         resp = requests.post(OPENROUTER_URL, json=payload, headers=headers, timeout=180)
@@ -114,15 +152,7 @@ def main():
             print(f"Error downloading image from {url}: {e}", file=sys.stderr)
             sys.exit(1)
 
-    image = PILImage.open(BytesIO(image_bytes))
-    if image.mode == "RGBA":
-        rgb_image = PILImage.new("RGB", image.size, (255, 255, 255))
-        rgb_image.paste(image, mask=image.split()[3])
-        rgb_image.save(str(output_path), "PNG")
-    elif image.mode == "RGB":
-        image.save(str(output_path), "PNG")
-    else:
-        image.convert("RGB").save(str(output_path), "PNG")
+    output_path.write_bytes(image_bytes)
 
     full_path = output_path.resolve()
     print(f"\nImage saved: {full_path}")

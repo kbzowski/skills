@@ -28,9 +28,18 @@ API key
 - `OPENROUTER_API_KEY` env var
 - Or pass `--api-key` / `-k` on the command line
 
+Optional flags
+
+- `--aspect-ratio` — e.g. `1:1`, `16:9`, `4:3`, `3:4`, `9:16`
+- `--image-size` — `1K` | `2K` | `4K` (OpenRouter resolution tier)
+- `--quality` — `low` | `medium` | `high` | `auto`
+- `--output-format` — `png` | `jpeg` | `webp`
+- `--background` — `auto` | `opaque` (gpt-image-2 does NOT support `transparent`)
+
 Notes
 
 - Text-to-image only. For editing or multi-image composition use the `nano-banana-pro` skill instead.
 - Use timestamped filenames: `yyyy-mm-dd-hh-mm-ss-name.png`.
+- The script saves raw bytes from the model — alpha channel (RGBA) is preserved if the response contains one.
 - The script prints `Image saved: <path>` and a `MEDIA: <path>` line so the path is easy to surface to the user.
 - Do not read the image back; report the saved path only.
