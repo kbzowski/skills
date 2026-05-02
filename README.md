@@ -25,3 +25,4 @@ npx skills add kbzowski/skills -l
 | [here-routing](skills/here-routing/) | Fetch real driving routes, distances, and travel times using HERE Maps Routing API v8 |
 | [nestjs-circular-deps](skills/nestjs-circular-deps/) | Diagnose, fix, and prevent circular dependencies in NestJS projects |
 | [tanstack-docs](skills/tanstack-docs/) | Search and fetch TanStack documentation, scaffold TanStack projects using @tanstack/cli |
+| [gpt-image-2-openrouter](skills/gpt-image-2-openrouter/) | Generate images via OpenRouter using the openai/gpt-5.4-image-2 model (text-to-image) |
