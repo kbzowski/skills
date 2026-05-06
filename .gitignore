@@ -5,3 +5,5 @@ Thumbs.db
 skills-lock.json
 .claude/
 .agents/
+.env
+.remember/
