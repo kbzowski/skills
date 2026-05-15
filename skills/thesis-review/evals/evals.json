@@ -1,0 +1,40 @@
+{
+  "skill_name": "thesis-review-wimiip",
+  "evals": [
+    {
+      "id": 1,
+      "name": "mgr-recenzent-wojton",
+      "prompt": "Jestem recenzentem tej pracy magisterskiej. Napisz recenzję, którą będę mógł wkleić do APD. Kierunek: Informatyka Techniczna, WIMIIP AGH.",
+      "expected_output": "Recenzja w 4 sekcjach zgodnie z szablonem APD: (1) ocena merytoryczna z podsekcjami 1.1-1.6, (2) struktura i układ, (3) język i styl (w tym sygnały AI), (4) mocne i słabe strony, + propozycja oceny z uzasadnieniem. Tekst wolny od wzorców pisania AI. Każda ocena cząstkowa ma wskazania stron. Jeśli praca nie zawiera rozdziału GenAI — odnotowane w sekcji 2.3. Skill nie zadaje pytań o rzeczy, które są w samej pracy.",
+      "files": ["prace/Piotr_Wojton_praca_magisterska(2).pdf"]
+    },
+    {
+      "id": 2,
+      "name": "inz-opiekun-reszczynski",
+      "prompt": "Piszę opinię opiekuna dla tego projektu dyplomowego. Przygotuj tekst do APD.",
+      "expected_output": "Opinia opiekuna w strukturze: charakterystyka merytoryczna pracy + ocena dyplomanta + ocena końcowa. Dla projektu inżynierskiego — weryfikacja czy jest rozwiązaniem problemu inżynierskiego (nie rozbudowanym zaliczeniem przedmiotu). Ocena w skali 2-5 z uzasadnieniem.",
+      "files": ["prace/Projekt_Dyplomowy_Dawid_Reszczyński(2).pdf"]
+    },
+    {
+      "id": 3,
+      "name": "mgr-recenzent-szyszka",
+      "prompt": "Napisz recenzję tej pracy. Jestem recenzentem.",
+      "expected_output": "Recenzja + ocena. Skill powinien wykryć stopień (mgr lub inż) z pliku/treści i zastosować właściwe kryteria. Sprawdzenie elementu poszerzającego zakres dla mgr albo realizacji problemu inżynierskiego dla inż. Weryfikacja bibliografii.",
+      "files": ["prace/Wykorzystanie_wybranego_algorytmu_optymalizacji_w_systemie_wspomagania_planowania_obron_dyplomowych_-_Wiktor_Szyszka(1).pdf"]
+    },
+    {
+      "id": 4,
+      "name": "mgr-recenzent-305740",
+      "prompt": "Oceń tę pracę magisterską jako recenzent.",
+      "expected_output": "Recenzja mgr z wyraźnym wskazaniem (lub wskazaniem braku) elementu poszerzającego zakres: innowacja / pogłębiona analiza / szerszy kontekst. Jeśli brak — max ocena 4,0. Tekst wolny od fraz-sygnałów AI.",
+      "files": ["prace/Praca_Magisterska_305740.pdf"]
+    },
+    {
+      "id": 5,
+      "name": "unknown-degree-wasylewicz",
+      "prompt": "Oto praca do recenzji. Przygotuj tekst do APD.",
+      "expected_output": "Skill ustala stopień studiów z zawartości pliku (w tytule nie ma tego explicite). Dopytuje o rolę (opiekun/recenzent). Generuje odpowiednią recenzję/opinię.",
+      "files": ["prace/AdamWasylewicz(3).pdf"]
+    }
+  ]
+}
