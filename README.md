@@ -29,3 +29,8 @@ npx skills add kbzowski/skills -l
 | [radashi](skills/radashi/) | Reference for ~154 functions in the radashi TypeScript utility toolkit (array, async, curry, object, string, typed, etc.) |
 | [gritql](skills/gritql/) | Structural (AST-aware) code search via the Grit CLI — find code by *shape* (calls with string-literal args, `console.log` inside `try/catch`, etc.) when regex isn't enough |
 | [nano-banana-2-openrouter](skills/nano-banana-2-openrouter/) | Generate images via OpenRouter using the google/gemini-3.1-flash-image-preview model (text-to-image, "nano-banana-2") |
+| [refactor](skills/refactor/) | Codebase refactoring focused on readability, simplification, strong typing, decomposition, deduplication, and framework best practices |
+| [scientific-paper-review](skills/scientific-paper-review/) | Rigorous peer review of empirical research papers with automated web verification, statistical integrity checks, and AI-slop / paper-mill detection |
+| [thesis-review](skills/thesis-review/) | Reviewer/supervisor opinions for engineering & master's theses (WIMIIP AGH Informatyka Techniczna); calibrates rigor to degree level |
+| [thesis-title-polish](skills/thesis-title-polish/) | Reformulate a Polish thesis title to the `[WHAT] + [DOMAIN] + [HOW] + [WHY]` schema and propose an English version |
+| [pyrefly](skills/pyrefly/) | Knowledge reference for pyrefly (Meta's Rust-based Python type checker): CLI, full `pyrefly.toml` schema, 102 error kinds, mypy/pyright migration, Django/Pydantic support, baseline workflow, IDE setup, tensor shapes |
