@@ -34,3 +34,4 @@ npx skills add kbzowski/skills -l
 | [thesis-review](skills/thesis-review/) | Reviewer/supervisor opinions for engineering & master's theses (WIMIIP AGH Informatyka Techniczna); calibrates rigor to degree level |
 | [thesis-title-polish](skills/thesis-title-polish/) | Reformulate a Polish thesis title to the `[WHAT] + [DOMAIN] + [HOW] + [WHY]` schema and propose an English version |
 | [pyrefly](skills/pyrefly/) | Knowledge reference for pyrefly (Meta's Rust-based Python type checker): CLI, full `pyrefly.toml` schema, 102 error kinds, mypy/pyright migration, Django/Pydantic support, baseline workflow, IDE setup, tensor shapes |
+| [leapspace](skills/leapspace/) | Literature research via Elsevier LeapSpace (ScienceDirect AI assistant) driven through Chrome: grounded answers with verifiable Scopus citations, Deep Research reports, expert/funding discovery, BibTeX/RIS export |
