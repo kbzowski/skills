@@ -1,0 +1,35 @@
+{
+  "skill_name": "fact-check-local",
+  "evals": [
+    {
+      "id": 0,
+      "name": "seeded-errors-polish",
+      "prompt": "Zweryfikuj raport fixture/raport.md wobec źródeł w fixture/sources/. Chcę mieć pewność, że każde twierdzenie ma pokrycie w źródłach.",
+      "expected_output": "Claim registry covering all claims; both seeded errors found (31 dni vs 21 days in Nowak; sampling 'za filtrem z linii tłocznej' vs 'return line before the filter' in Schmidt); every verdict has pasted quote evidence; no false accusations against the ~10 correct claims; quantified closing statement with stop criteria.",
+      "files": ["fixture/raport.md", "fixture/sources/Nowak_2023_BearingWear.md", "fixture/sources/Schmidt_2024_OilAnalysis.md"],
+      "assertions": [
+        "Detects seeded error 1: '31 dni' vs 21 days in Nowak 2023",
+        "Detects seeded error 2: sampling location reversed vs Schmidt 2024 ('return line before the filter')",
+        "No false accusations against correct claims",
+        "Every reported error backed by a verbatim source quote",
+        "Claim registry artifact with per-claim verdicts exists",
+        "Quantified final summary (counts of confirmed/contradicted/unverifiable)"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "recurring-errors-complaint",
+      "prompt": "I reviewed fixture/raport.md against the two source papers in fixture/sources/ twice already and each time I find new mistakes. Check it properly this time so I know when it's actually done.",
+      "expected_output": "Same detection as eval 0, plus explicit convergence guarantees: completeness test result, stop criteria status, residual-error statement; the answer explains WHY this verification converges unlike ad hoc re-reading.",
+      "files": ["fixture/raport.md", "fixture/sources/Nowak_2023_BearingWear.md", "fixture/sources/Schmidt_2024_OilAnalysis.md"],
+      "assertions": [
+        "Detects seeded error 1: '31 dni' vs 21 days in Nowak 2023",
+        "Detects seeded error 2: sampling location reversed vs Schmidt 2024 ('return line before the filter')",
+        "No false accusations against correct claims",
+        "Every reported error backed by a verbatim source quote",
+        "Claim registry artifact with per-claim verdicts exists",
+        "Addresses 'when is it done': explicit stop criteria / completeness evidence"
+      ]
+    }
+  ]
+}
