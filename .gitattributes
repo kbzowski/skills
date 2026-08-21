@@ -1,0 +1,7 @@
+# uv silently ignores the [tool.uv] block in a PEP 723 header with CRLF endings,
+# which would land a CPU-only torch wheel. Keep script headers LF everywhere.
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.pdf binary
+*.png binary
