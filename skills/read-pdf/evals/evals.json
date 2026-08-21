@@ -1,0 +1,74 @@
+{
+  "skill_name": "read-pdf",
+  "evals": [
+    {
+      "id": 1,
+      "name": "digital-pdf-to-markdown",
+      "prompt": "Wyciagnij tekst z pliku fixture/digital_note.pdf do markdowna, zebym mogl go potem przeszukiwac - zalezy mi zwlaszcza na liczbach z tabeli twardosci.",
+      "files": [
+        "fixture/digital_note.pdf"
+      ],
+      "expected_output": "A .md file containing the report text and the hardness numbers, produced via the skill's script.",
+      "assertions": [
+        "A .md file was produced and is non-empty",
+        "The markdown contains the heading text 'Cooling Test Report No. 7'",
+        "The markdown contains the hardness values 198, 172 and 161",
+        "The conversion was done with scripts/pdf_to_md.py, not by reading the PDF directly",
+        "The hardness table is rendered as a Markdown table, not as a run-on paragraph"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "scanned-pdf-needs-full-ocr",
+      "prompt": "this pdf seems to be a scan - when i open it there is no selectable text at all. can you get the text out of fixture/scan_note.pdf?",
+      "files": [
+        "fixture/scan_note.pdf"
+      ],
+      "expected_output": "Non-empty markdown obtained with --full-ocr, plus a caveat that OCR digits may be misread.",
+      "assertions": [
+        "The script was invoked with --full-ocr (either directly or after an empty first attempt)",
+        "The resulting markdown is non-empty and contains 'Cooling Test Report'",
+        "The reply flags that OCR transcription of numbers/units is not fully reliable"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "figure-extraction-to-directory",
+      "prompt": "Potrzebuje z tego raportu wyciagnac wykres jako osobny plik png, plus tekst - fixture/digital_note.pdf",
+      "files": [
+        "fixture/digital_note.pdf"
+      ],
+      "expected_output": "Run with --images; output in its own directory with <stem>.md plus <stem>_artifacts/ PNGs.",
+      "assertions": [
+        "The script was invoked with --images",
+        "At least one PNG was written into a <stem>_artifacts/ directory",
+        "The reply states where the .md and the _artifacts/ directory landed, and how many figures were extracted"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "summarize-from-markdown",
+      "prompt": "Streszcz mi ten raport i podaj gradient twardosci: fixture/digital_note.pdf",
+      "files": [
+        "fixture/digital_note.pdf"
+      ],
+      "expected_output": "Converts to Markdown with the skill's script first, then summarizes from the Markdown and cites it.",
+      "assertions": [
+        "The PDF is converted with the skill's script before summarizing",
+        "The summary cites the generated .md file rather than the PDF",
+        "The reported hardness gradient is 37 HV10"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "negative-trigger-pdf-generation",
+      "prompt": "Mam gotowy raport w markdownie (raport.md) - zrob mi z niego ladny PDF do wyslania klientowi, z naglowkiem firmy na pierwszej stronie.",
+      "files": [],
+      "expected_output": "The read-pdf skill should NOT be used; this is PDF generation, which the description explicitly excludes.",
+      "assertions": [
+        "The read-pdf skill is not invoked",
+        "No call to scripts/pdf_to_md.py is made"
+      ]
+    }
+  ]
+}
