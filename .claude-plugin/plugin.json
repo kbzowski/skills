@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "kbzowski-skills",
+  "displayName": "Kbzowski Skills",
+  "description": "Personal collection of Claude Code agent skills: PDF/OCR ingestion, scientific paper and thesis review, local fact-checking, refactoring, dependency updates, image generation, and framework references.",
+  "author": {
+    "name": "Krzysztof Bzowski",
+    "url": "https://github.com/kbzowski"
+  },
+  "homepage": "https://github.com/kbzowski/skills",
+  "repository": "https://github.com/kbzowski/skills",
+  "license": "MIT",
+  "keywords": ["skills", "pdf", "ocr", "docling", "refactoring", "review", "research"]
+}

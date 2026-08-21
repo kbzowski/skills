@@ -2,7 +2,26 @@
 
 Personal collection of Claude Code agent skills.
 
-## Install
+## Install as a Claude Code plugin (recommended)
+
+The repo is also a plugin marketplace, so Claude Code handles installation and updates:
+
+```
+/plugin marketplace add kbzowski/skills
+/plugin install kbzowski-skills@kbzowski
+```
+
+To pull in later changes:
+
+```
+/plugin marketplace update kbzowski
+/plugin update kbzowski-skills
+```
+
+The plugin declares no `version`, so its version is the git commit SHA — every pushed commit
+is a new version and updates flow without a manual bump.
+
+## Install individual skills
 
 ```bash
 # Install all skills
