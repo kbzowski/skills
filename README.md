@@ -25,6 +25,7 @@ To pull in later changes:
 | Skill | Description |
 |-------|-------------|
 | [read-pdf](skills/read-pdf/) | Convert a PDF to agent-readable Markdown with docling + GPU EasyOCR, including scans |
+| [translate-pdf](skills/translate-pdf/) | Translate a PDF with a glossary, a layout-preserving DOCX + PDF rebuild, and four parallel reviewer agents |
 | [fact-check-local](skills/fact-check-local/) | Verify a document claim-by-claim against a local source corpus |
 | [leapspace](skills/leapspace/) | Literature research via Elsevier LeapSpace with verifiable Scopus citations |
 | [scientific-paper-review](skills/scientific-paper-review/) | Peer review of empirical papers with web verification and statistical integrity checks |
