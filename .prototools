@@ -1,0 +1,2 @@
+uv = "latest"
+python = "^3.12"

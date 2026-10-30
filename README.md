@@ -46,14 +46,12 @@ To pull in later changes:
 | Skill | Description |
 |-------|-------------|
 | [fix-playwright](skills/fix-playwright/) | Fix Playwright E2E failures and flakiness, verified by 3 consecutive green runs |
-| [update-deps](skills/update-deps/) | Dependency updates with real changelog research, code-level verification, grouped commits |
+| [update-deps](skills/update-deps/) | Dependency updates for any language and package manager, monorepo-aware, with changelog research and code-level verification |
 
 ### Image generation
 
 | Skill | Description |
 |-------|-------------|
-| [gpt-image-2-openrouter](skills/gpt-image-2-openrouter/) | Text-to-image via OpenRouter using `openai/gpt-5.4-image-2` |
-| [nano-banana-2-openrouter](skills/nano-banana-2-openrouter/) | Text-to-image via OpenRouter using `google/gemini-3.1-flash-image-preview` |
 | [adobe-firefly](skills/adobe-firefly/) | Generate images in Adobe Firefly through Chrome, no API needed |
 
 ### References & integrations
@@ -63,4 +61,5 @@ To pull in later changes:
 | [pyrefly](skills/pyrefly/) | Reference for pyrefly, Meta's Rust-based Python type checker |
 | [radashi](skills/radashi/) | Reference for the ~154 functions of the radashi TypeScript toolkit |
 | [tanstack-docs](skills/tanstack-docs/) | Search TanStack documentation and scaffold projects with `@tanstack/cli` |
+| [classroom50](skills/classroom50/) | Teacher and student knowledge for Classroom 50, the open-source GitHub Classroom replacement (web app + `gh teacher`/`gh student`) |
 | [here-routing](skills/here-routing/) | Driving routes, distances, and travel times via HERE Maps Routing API v8 |
