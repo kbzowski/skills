@@ -1,8 +1,8 @@
 ---
 name: translate-pdf
 description: >-
-  Translates a PDF document into another language methodically — OCR when needed, a term
-  glossary, a faithful translation that keeps form and context, a rebuilt DOCX + PDF that looks
+  Translates a PDF document into another language methodically — OCR when needed, a glossary
+  built for that document, a faithful translation that keeps form and context, a rebuilt DOCX + PDF that looks
   like the original (cover, images, numbering, tables, table of contents), then four parallel
   reviewer agents (terminology, fidelity, target-language style, layout) whose findings are
   applied in one batch. Use this whenever the user asks to translate a PDF or a scanned document
@@ -67,20 +67,52 @@ so they will not catch it.
 
 ## 2. Read everything, then build the glossary
 
+Every translation gets its own glossary, built from this document. Don't reuse one from an
+earlier job as the starting point: the same word can need a different rendering in another
+field or contract, and a reused glossary also carries one client's material into another's work.
+
 Read the whole source before translating a line. You need the key terms, how they are used
 across sections, the cross-references, and the source's own errors before the first chunk
-fixes your choices.
+fixes your choices. Then list the candidates:
 
-Write `WORK/glossary.md`: every defined or recurring term, fixed formulas, official names
-(laws, institutions, standards, products) in their established target-language form, and
-abbreviations to keep or expand. Choose terms as practitioners of that field use them in the
-target language, and check official names against an authoritative source when you can.
-Watch for false friends and for a common word that has a narrower or wider technical meaning
-in the field. One term may also collide with another once translated, so check the glossary
-against itself.
+```bash
+uv run --script {baseDir}/scripts/extract_terms.py WORK/src.txt WORK/term_candidates.tsv
+```
 
-Also list the source errors you noticed: wrong cross-references, numbers that contradict their
-spelled-out form, duplicated passages.
+The list shows acronyms, CAPS and Title Case phrases and repeated phrases, with counts and first
+pages. It is noisy, and frequency misses terms that occur once but matter (a defined word, a
+legal concept, a safety warning). Discard the noise and add what your reading found: fixed
+formulas, official names (laws, institutions, standards, products), units, and abbreviations
+to keep or expand.
+
+Write `WORK/glossary.md` in this form:
+
+```markdown
+# Glossary: <document> (<source language> → <target language>)
+Domain: <field and document type>
+
+| Source term | Target term | Source meaning / where defined | Why this choice |
+|---|---|---|---|
+| ... | ... | p. 5, defined term | established usage in the field; collides with X otherwise |
+
+## Source errors
+- p. 7: <what is wrong; how it will be marked>
+```
+
+Fill the "why" only where the choice needed thought, since a rationale for every obvious word is
+noise. For each term, use the form practitioners of that field use in the target language. Use
+the document's own definition over a dictionary sense, and check official names against an
+authoritative source; mark any you could not verify. Watch for false friends and for common
+words with a narrower or wider technical meaning in the field. Then read the target column on its
+own: two source terms sharing one rendering is a collision to resolve now, before it spreads
+through the text.
+
+Source errors to list: wrong cross-references, numbers that contradict their spelled-out form,
+duplicated passages.
+
+The glossary is a working document. When you hit a new term during translation, add it before
+using it. When a reviewer's fix changes a term, change it in the glossary too, then replace
+every occurrence in the text.
 
 ## 3. Translate into markup
 
@@ -127,9 +159,9 @@ the subtle problems.
 
 Launch the four reviewers from `references/review-agents.md` in one message, in the
 background: terminology, fidelity and completeness, target-language editor, layout. Fill in
-the paths, the domain and your deliberate glossary decisions, so they challenge choices
-only with a reason. They report and do not edit. Edits made while they read would shift the
-line numbers they cite.
+the paths and the domain, and point them at `WORK/glossary.md`, so they check the text against
+it and challenge its choices only with a reason. They report and do not edit. Edits made while
+they read would shift the line numbers they cite.
 
 While they run, tell the user what is happening in one line. Don't predict their results.
 
@@ -146,12 +178,14 @@ Wait for all four reports, then triage:
 
 Apply the accepted fixes with one script that holds `(file, old, new, expected_count)`
 replacements and asserts each one matched. A silent non-match is how fixes get lost.
-Rebuild with `--render`, look at the changed pages, and check the TOC numbers again.
+Rebuild with `--render`, look at the changed pages, and check the TOC numbers again. Then copy
+the updated glossary next to the output as `NAME_FR_glossary.md`. It lets the user see and
+overrule the term choices, and keeps a later revision of this document consistent.
 
 ## 7. Report
 
 Tell the user, briefly:
-- where the `.docx` and `.pdf` are, the page count and why it differs if it does;
+- where the `.docx`, `.pdf` and glossary are, the page count and why it differs if it does;
 - whether OCR was needed, and which images were carried over;
 - the most important reviewer fixes;
 - the source errors kept and marked;

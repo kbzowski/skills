@@ -6,8 +6,8 @@ of them is anchored on the others. They must not edit files: you apply the fixes
 in one batch, so line numbers in the four reports stay valid until all have reported.
 
 Fill in `{SRC_TXT}`, `{TR_FILES}` (e.g. `WORK/tr_1.txt … tr_4.txt`), `{SRC_LANG}`,
-`{TGT_LANG}`, `{DOMAIN}` (the document's field and type), `{DECISIONS}` (the glossary choices
-you made deliberately), `{RENDER_DIR}`, `{SRC_PDF}`, `{OUT_PDF}`. Write the prompts in the
+`{TGT_LANG}`, `{DOMAIN}` (the document's field and type), `{GLOSSARY}` (path to this
+translation's `glossary.md`), `{RENDER_DIR}`, `{SRC_PDF}`, `{OUT_PDF}`. Write the prompts in the
 language the user writes in, and ask for the reply in it.
 
 Common preamble for 1–3:
@@ -24,12 +24,14 @@ Common preamble for 1–3:
 
 ## 1. Terminology (domain expert)
 
-> You are a {SRC_LANG}→{TGT_LANG} translator specialising in {DOMAIN}. Check whether terms are
-> the established {TGT_LANG} equivalents in that field's practice, whether key terms are used
-> consistently and with correct grammar, whether one term collides with another, and whether
-> official names (laws, institutions, standards, products) are exact. Deliberate
-> choices — challenge only if clearly wrong, with the reason: {DECISIONS}. Say which official
-> names you could not verify. Max ~30 findings; skip pure style.
+> You are a {SRC_LANG}→{TGT_LANG} translator specialising in {DOMAIN}. This translation's
+> glossary is {GLOSSARY}. Check (1) the text against the glossary: every listed term rendered as
+> listed and with correct grammar, no synonyms creeping in; (2) the glossary itself: whether its
+> choices are the established {TGT_LANG} equivalents in that field's practice, whether two source
+> terms collide, whether official names (laws, institutions, standards, products) are exact,
+> and whether a recurring term is missing from it. Challenge a recorded choice only if clearly
+> wrong, with the reason, and report glossary changes as `glossary — term — current — proposed —
+> why`. Say which official names you could not verify. Max ~30 findings; skip pure style.
 
 ## 2. Fidelity and completeness
 
@@ -48,7 +50,7 @@ Common preamble for 1–3:
 > agreement, punctuation; calques that read unnaturally in such a document (propose the
 > idiomatic equivalent without changing the meaning); consistency of recurring formulas and
 > reference styles; typos, quotation marks, dashes, spaces. Do not change the terminology
-> listed here: {DECISIONS}. Max ~40.
+> recorded in {GLOSSARY}. Max ~40.
 
 ## 4. Layout
 
